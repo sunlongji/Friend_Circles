@@ -1,0 +1,24 @@
+public class Solution {
+    public int findCircleNum(int[][] M) {
+        int n=M.length;
+        int[] root=new int[n];
+        //Every element is a root;
+        for(int i=0;i<n;i++)    root[i]=i;
+        for(int i=0;i<n;i++){
+            for(int j=i+1;j<n;j++){
+                if(M[i][j]==1)  
+                     unionFind(root,i,j);
+            }
+        }
+        int count=0;
+        for(int i=0;i<n;i++)
+            if(i==root[i])
+                count++;
+        return count;
+    }
+    private void unionFind(int[] root, int i, int j){
+        while(root[i]!=i)   i=root[i]; //find i's root;
+        while(root[j]!=j)   j=root[j]; //find j's root;
+        if(root[i]!=root[j])    root[i]=j; //unite the 2 subtrees;
+    }
+}
